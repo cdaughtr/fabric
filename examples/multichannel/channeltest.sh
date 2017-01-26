@@ -15,7 +15,7 @@ sleep 5
 echo "#join myc1 channel on peer0"
 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 CORE_PEER_ADDRESS=peer0:7051 peer channel join -b myc1.block >>log.txt 2>&1
 echo '-------------------------------------------------'
-#cat log.txt
+cat log.txt
 echo '-------------------------------------------------'
 grep "Join Result: " log.txt
    if [ $? -ne 0 ]; then
@@ -29,7 +29,7 @@ sleep 10
 echo "# join myc1 channel on peer1"
 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 CORE_PEER_ADDRESS=peer1:7051 peer channel join -b myc1.block >>log.txt 2>&1
 echo '-------------------------------------------------'
-#cat log.txt
+cat log.txt
 echo '-------------------------------------------------'
 grep "Join Result: " log.txt
    if [ $? -ne 0 ]; then
@@ -42,7 +42,7 @@ sleep 10
 echo "# join myc1 channel on peer2"
 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 CORE_PEER_ADDRESS=peer2:7051 peer channel join -b myc1.block >>log.txt 2>&1
 echo '-------------------------------------------------'
-#cat log.txt
+cat log.txt
 echo '-------------------------------------------------'
 grep "Join Result: " log.txt
    if [ $? -ne 0 ]; then
@@ -73,7 +73,7 @@ CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 pee
       exit 1
    fi
 echo "SUCCESSFUL INVOKE CHAINCODE" >> results.txt
-
+cat results.txt
 sleep 10
 echo "query on channel myc1 on peer0"
 CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode query -C myc1 -n mycc -c '{"Args":["query","a"]}' >>log.txt 2>&1
@@ -101,7 +101,9 @@ CORE_PEER_ADDRESS=peer2:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 pee
       echo "ERROR on QUERY CHAINCODE" >> results.txt
       exit 1
    fi
+cat results.txt
 echo "SUCCESSFUL QUERY CHAINCODE" >> results.txt
 echo "THE TEST PASSED." >> results.txt
 exit 0
 
+cat results.txt
