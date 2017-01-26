@@ -50,7 +50,7 @@ grep "Join Result: " log.txt
       exit 1
    fi
 echo "SUCCESSFUL JOIN CHANNEL" >> results.txt
-
+cat results.txt
 sleep 10
 
 echo "#deploy myc1 on peer0"
@@ -61,7 +61,7 @@ CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 pee
       exit 1
    fi
 echo "SUCCESSFUL DEPLOY CHAINCODE" >> results.txt
-
+cat results.txt
 sleep 10
 
 ##
