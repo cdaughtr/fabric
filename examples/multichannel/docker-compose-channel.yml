@@ -161,7 +161,7 @@ services:
       - CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050
       - CORE_PEER_ADDRESS=peer0:7051
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-    command: sh -c 'sleep 5; ./channeltest_node.sh'
+    command: sh -c 'sleep 5; ./channeltest.sh'
 #    command: /bin/sh
     links:
       - orderer:orderer
