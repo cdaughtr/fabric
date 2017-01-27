@@ -8,7 +8,7 @@ Clone latest [Fabric repo](https://github.com/hyperledger/fabric.git) and follow
  2) Make sure chaincode is not existed.. If it is, please modify the above commands while creating channel.
  3) Make sure you have latest fabric code. While deploying chaincode from CLI container, it look for example02 program in your local fabric git repo example02 program.
 
-Execute below command to spinup 3 peer, 1 orderer (solo) and ca containers. Once the command is executed successfully execute `docker ps` to see the active containers running. 
+Execute below command to spinup 3 peer, 1 orderer **(solo)** and ca containers. Once the command is executed successfully execute `docker ps` to see the active containers running. 
 
 `docker-compose -f docker-compose-channel.yml up -d --force-recreate`
 
@@ -30,13 +30,13 @@ If you are intrested to join channel on other peers ex: peer1 or peer2 modify **
 ####Query on peer0
 `CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode query -C myc1 -n mycc -c '{"Args":["query","a"]}'`
 
-##How to run Couch
+## How to run peer on couchdb
 
-`docker-compose-couch.yml` file is having couchdb configuration. Just run this yml file and execute above commands to play with channel creation and join. Once the deploy is successfull access couchdb UI from browser applying `localhost:15984` or `http://192.168.59.3:15984/_utils/#database/myc1/_find` replace ipaddress with your machine ip address.
+`docker-compose-couchdb.yml` file is having couchdb configuration. Just run this yml file and execute above commands to play with channel creation and join. Once the deploy is successfull access couchdb UI from browser applying `localhost:15984` or `http://192.168.59.3:15984/_utils/#database/myc1/_find` replace ipaddress with your machine ip address.
 
-# Run Node end-to-end.js program:
+## Run Node end-to-end.js program:
 
-Comment out the command variable (execution command) from CLI container in docker-compose file or modify `channeltest_node.sh` script to perform create, Join and deploy channels. Once the network is ready with the above approach, switch back to hyperledger directory and clone fabric-sdk-node repository to run end-to-end.js program.
+Comment out the command variable (execution command) `command: sh -c 'sleep 5; ./channeltest.sh'` from CLI container in docker-compose file or modify `channeltest_node.sh` script to perform create, Join and deploy channels. Once the network is ready with the above approach, switch back to hyperledger directory and clone fabric-sdk-node repository to run end-to-end.js program.
 
 clone latest [fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node.git) repository.
 
