@@ -40,7 +40,7 @@ sleep 10
 
 echo "#deploy myc1 on peer0"
 
-CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode deploy -C myc1 -n madhu -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args":["init","a","100","b","200"]}' >>log.txt 2>&1
+CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode deploy -C myc1 -n mycc -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args":["init","a","100","b","200"]}' >>log.txt 2>&1
 #cat log.txt
 echo '---------------------------------------------'
 grep "openKeyStore" log.txt
@@ -53,7 +53,7 @@ echo "SUCCESSFUL DEPLOY CHAINCODE"
 
 sleep 30
 #invoke
-CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode invoke -C myc1 -n madhu -c '{"Args":["invoke","a","b","10"]}' >>log.txt 2>&1
+CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode invoke -C myc1 -n mycc -c '{"Args":["invoke","a","b","10"]}' >>log.txt 2>&1
    grep "status:200" log.txt
    if [ $? -ne 0 ]; then
       echo "ERROR on INVOKE CHAINCODE" >> results.txt
@@ -66,7 +66,7 @@ echo "SUCCESSFUL INVOKE ON PEER0"
 sleep 15
 echo "#################################### Query on peer0"
 #query
-CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode query -C myc1 -n madhu -c '{"Args":["query","a"]}' >>log.txt 2>&1
+CORE_PEER_ADDRESS=peer0:7051 CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050 peer chaincode query -C myc1 -n mycc -c '{"Args":["query","a"]}' >>log.txt 2>&1
    grep "Query Result peer: 90" log.txt
    if [ $? -ne 0 ]; then
       echo "ERROR on QUERY CHAINCODE" >> results.txt
