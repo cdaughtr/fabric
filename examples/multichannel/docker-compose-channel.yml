@@ -152,7 +152,7 @@ ccenv_latest:
       - CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050
       - CORE_PEER_ADDRESS=peer0:7051
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-    command: sh -c 'sleep 5; ./channeltest.sh'
+    command: sh -c './channeltest_node.sh;sleep 1000'
     links:
       - orderer:orderer
       - peer0:peer0
@@ -164,6 +164,6 @@ ccenv_latest:
         #should be modified to the path on the host. This will work as is in the Vagrant environment
         - /opt/gopath/src/github.com/hyperledger/fabric/examples/:/opt/gopath/src/github.com/hyperledger/fabric/examples/
         - ./tmp/peer3/:/etc/hyperledger/fabric/msp/sampleconfig
-        - ./channeltest.sh:/opt/gopath/src/github.com/hyperledger/fabric/peer/channeltest.sh
+        - ./channeltest_node.sh:/opt/gopath/src/github.com/hyperledger/fabric/peer/channeltest_node.sh
     networks:
       - bridge
