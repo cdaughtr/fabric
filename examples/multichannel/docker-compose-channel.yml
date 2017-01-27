@@ -4,27 +4,18 @@ networks:
 
 services:
 
-  multichain:
-    container_name: multichain
-    image: rameshthoomu/fabric-multichain-x86_64
-#    image: rameshthoomu/fabric-peer-x86_64:x86_64-0.7.0-snapshot-8f5dfca
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/examples/multichannel
+ccenv_latest:
+    container_name: ccenv_latest
+    build: ./ccenv
+    image: hyperledger/fabric-ccenv:latest
     volumes:
-        - '/opt/gopath/src/github.com/hyperledger/fabric/examples/multichannel:/opt/gopath/src/github.com/hyperledger/fabric/examples/multichannel'
-    command: /bin/bash -c "./setenv.sh; sleep 5"
-#    command: sh -c "./setenv.sh; sleep 5"
-    networks:
-      - bridge
-
-  ccenv:
-    container_name: ccenv
+        - ./ccenv:/opt/gopath/src/github.com/hyperledger/fabric/orderer/ccenv
+  ccenv_snapshot:
+    container_name: ccenv_snapshot
     build: ./ccenv
     image: hyperledger/fabric-ccenv:x86_64-0.7.0-snapshot-3ee280e
     volumes:
         - ./ccenv:/opt/gopath/src/github.com/hyperledger/fabric/orderer/ccenv
-    depends_on:
-      - multichain
-
   ca:
     image: rameshthoomu/fabric-ca-x86_64
     ports:
@@ -54,7 +45,7 @@ services:
 #      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/fabric/orderer/genesis_file
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
     volumes:
-      - ./tmp/orderer:/etc/hyperledger/fabric/orderer
+        - ./tmp/orderer:/etc/hyperledger/fabric/orderer
     command: orderer
     ports:
       - 7050:7050
@@ -162,7 +153,6 @@ services:
       - CORE_PEER_ADDRESS=peer0:7051
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: sh -c 'sleep 5; ./channeltest.sh'
-#    command: /bin/sh
     links:
       - orderer:orderer
       - peer0:peer0
